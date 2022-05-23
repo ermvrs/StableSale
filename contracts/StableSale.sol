@@ -63,6 +63,12 @@ contract LockedSale is Ownable {
         emit MinAmountChanged(_amount);
     }
 
+    function setPrice(uint256 _price) public onlyOwner {
+        price = _price;
+
+        emit PriceChanged(price);
+    }
+
     function setReceiverAddress(address _recv) public onlyOwner {
         dev = _recv;
 
@@ -83,4 +89,5 @@ contract LockedSale is Ownable {
     event MinAmountChanged(uint256 amount);
     event ReceiverAddressChanged(address recv);
     event Swap(address indexed user, uint256 paid, uint256 sent);
+    event PriceChanged(uint256 price);
 }
