@@ -9,16 +9,13 @@ contract LockedSale is Ownable {
     bool public saleActive = true;
     uint256 public price = 0.55 ether; // 1 RV2 = 0.55 BUSD
 
-
-    address public dev;
     IERC20 public payToken; // busd
     IERC20 public recvToken; // rv2
 
 
-    constructor(IERC20 _payToken, IERC20 _recvToken, address _dev) {
+    constructor(IERC20 _payToken, IERC20 _recvToken) {
         payToken = _payToken;
         recvToken = _recvToken;
-        dev = _dev;
     }
 
     function swapToken(uint256 _amount) public onlySaleActive {
@@ -67,12 +64,6 @@ contract LockedSale is Ownable {
         price = _price;
 
         emit PriceChanged(price);
-    }
-
-    function setReceiverAddress(address _recv) public onlyOwner {
-        dev = _recv;
-
-        emit ReceiverAddressChanged(_recv);
     }
 
     function withdrawTokens(IERC20 _token, uint256 _amount) public onlyOwner {
